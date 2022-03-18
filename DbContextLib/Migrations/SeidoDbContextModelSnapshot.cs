@@ -52,7 +52,7 @@ namespace DbContextLib.Migrations
 
                     b.HasKey("CustomerID");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("DbModelsLib.Order", b =>
@@ -85,7 +85,7 @@ namespace DbContextLib.Migrations
 
                     b.HasIndex("CustomerID");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("DbModelsLib.Order", b =>

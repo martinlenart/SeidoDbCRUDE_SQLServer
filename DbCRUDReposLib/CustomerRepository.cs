@@ -11,6 +11,15 @@ namespace DbCRUDReposLib
     {
         SeidoDbContext _db = null;
 
+        public Customer Create(Customer cust)
+        {
+            var added = _db.Customers.Add(cust);
+            var affected = _db.SaveChanges();
+            if (affected == 1)
+                return cust;
+            else
+                return null;
+        }
         public async Task<Customer> CreateAsync(Customer cust)
         {
             var added = await _db.Customers.AddAsync(cust);

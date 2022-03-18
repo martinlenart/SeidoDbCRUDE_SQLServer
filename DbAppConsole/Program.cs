@@ -31,16 +31,17 @@ namespace DbAppConsole
             //add-migration initial-migration
             //update-database
 
-            /*
+            
             SeedDataBase();
             QueryDatabaseAsync().Wait();
             QueryDatabase_Linq();
             QueryDatabase_DataModel_Linq();
-            QueryDatabaseCRUDE().Wait();
+            QueryDatabaseCRUDEAsync().Wait();
+
+            QueryDatabaseCRUDE();
 
             Console.WriteLine("\nPress any key to terminate");
             Console.ReadKey();
-            */
         }
 
         private static bool BuildOptions()
@@ -110,8 +111,8 @@ namespace DbAppConsole
             {
                 //Use .AsEnumerable() to make sure the Db request is fully translated to be managed by Linq.
                 //Use ToList() to ensure the Model is fully loaded
-                var customers = db.Customers.AsEnumerable().ToList();
-                var orders = db.Orders.AsEnumerable().ToList();
+                var customers = db.Customers.ToList();
+                var orders = db.Orders.ToList();
 
                 Console.WriteLine($"Nr of orders: {orders.Count()}");
                 Console.WriteLine($"Total order value: {orders.Sum(order => order.Total):C2}");
@@ -154,9 +155,9 @@ namespace DbAppConsole
            }
         }
 
-        private static async Task QueryDatabaseCRUDE()
+        private static async Task QueryDatabaseCRUDEAsync()
         {
-            Console.WriteLine("\n\nQuery Database CRUDE");
+            Console.WriteLine("\n\nQuery Database CRUDE Async");
             Console.WriteLine("--------------------");
             using (var db = new SeidoDbContext(_optionsBuilder.Options))
             {
@@ -230,6 +231,24 @@ namespace DbAppConsole
                     Console.WriteLine("ERROR: Customer not removed");
                 else
                     Console.WriteLine("Customer confirmed removed from Db");
+            }
+        }
+        private static void QueryDatabaseCRUDE()
+        {
+            Console.WriteLine("\n\nQuery Database CRUDE");
+            Console.WriteLine("--------------------");
+            using (var db = new SeidoDbContext(_optionsBuilder.Options))
+            {
+                var _repo = new CustomerRepository(db);
+
+                Console.WriteLine("\nTesting Create()");
+                var NewCust1 = Customer.Factory.CreateRandom();
+                var NewCust2 = _repo.Create(NewCust1);
+
+                if (NewCust2 != null)
+                    Console.WriteLine($"Created: {NewCust2}");
+                else
+                    Console.WriteLine("ERROR: Creation Error");
             }
         }
     }

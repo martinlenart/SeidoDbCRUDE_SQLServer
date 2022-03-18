@@ -11,6 +11,7 @@ namespace DbCRUDReposLib
     public interface ICustomerRepository
     {
         //Using a fluent syntax when possible
+        Customer Create(Customer cust);
         Task<Customer> CreateAsync(Customer cust);
         Task<IEnumerable<Customer>> ReadAllAsync();
         Task<Customer> ReadAsync(Guid custId);

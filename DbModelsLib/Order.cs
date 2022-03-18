@@ -12,7 +12,8 @@ namespace DbModelsLib
         [Key]
         [Column("OrderID")]
         public Guid OrderID { get; set; }
-
+        
+        [ForeignKey(nameof(CustomerID))]
         [Column("CustomerID")]
         public Guid CustomerID { get; set; }
         public virtual Customer Customer { get; set; }
