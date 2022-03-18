@@ -16,7 +16,8 @@ namespace DbCRUDReposLib
         Task<IEnumerable<Customer>> ReadAllAsync();
         Task<Customer> ReadAsync(Guid custId);
         Task<Customer> UpdateAsync(Customer cust);
-        Customer DeleteAsync(Guid custId);
-        Task<Customer> Delete(Guid custId);
+        Task<Customer> DeleteAsync(Guid custId);
+        Customer Delete(Guid custId);
+
     }
 }

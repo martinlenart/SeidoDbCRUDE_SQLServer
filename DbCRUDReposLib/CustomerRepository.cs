@@ -63,6 +63,18 @@ namespace DbCRUDReposLib
                 return null;
         }
 
+        public Customer Delete(Guid custId)
+        {
+            var cusDel = _db.Customers.Find(custId);
+            _db.Customers.Remove(cusDel);
+
+            int affected = _db.SaveChanges();
+            if (affected == 1)
+                return cusDel;
+            else
+                return null;
+        }
+
         public CustomerRepository(SeidoDbContext db)
         {
             _db = db; 
