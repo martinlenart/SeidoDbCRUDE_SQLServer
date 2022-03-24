@@ -32,13 +32,11 @@ namespace DbAppConsole
             //update-database
 
             
-            SeedDataBase();
+            //SeedDataBase();
             QueryDatabaseAsync().Wait();
             QueryDatabase_Linq();
             QueryDatabase_DataModel_Linq();
             QueryDatabaseCRUDEAsync().Wait();
-
-            QueryDatabaseCRUDE();
 
             Console.WriteLine("\nPress any key to terminate");
             Console.ReadKey();
@@ -231,24 +229,6 @@ namespace DbAppConsole
                     Console.WriteLine("ERROR: Customer not removed");
                 else
                     Console.WriteLine("Customer confirmed removed from Db");
-            }
-        }
-        private static void QueryDatabaseCRUDE()
-        {
-            Console.WriteLine("\n\nQuery Database CRUDE");
-            Console.WriteLine("--------------------");
-            using (var db = new SeidoDbContext(_optionsBuilder.Options))
-            {
-                var _repo = new CustomerRepository(db);
-
-                Console.WriteLine("\nTesting Create()");
-                var NewCust1 = Customer.Factory.CreateRandom();
-                var NewCust2 = _repo.Create(NewCust1);
-
-                if (NewCust2 != null)
-                    Console.WriteLine($"Created: {NewCust2}");
-                else
-                    Console.WriteLine("ERROR: Creation Error");
             }
         }
     }

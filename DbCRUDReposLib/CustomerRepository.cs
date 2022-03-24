@@ -11,21 +11,12 @@ namespace DbCRUDReposLib
     {
         SeidoDbContext _db = null;
 
-        public Customer Create(Customer cust)
-        {
-            var added = _db.Customers.Add(cust);
-            var affected = _db.SaveChanges();
-            if (affected == 1)
-                return cust;
-            else
-                return null;
-        }
         public async Task<Customer> CreateAsync(Customer cust)
         {
             var added = await _db.Customers.AddAsync(cust);
 
             int affected = await _db.SaveChangesAsync();
-            if (affected == 1)
+            if (affected != 0)
                 return cust;
             else
                 return null;
@@ -37,7 +28,7 @@ namespace DbCRUDReposLib
             _db.Customers.Remove(cusDel);
 
             int affected = await _db.SaveChangesAsync();
-            if (affected == 1)
+            if (affected != 0)
                 return cusDel;
             else
                 return null;
@@ -57,24 +48,12 @@ namespace DbCRUDReposLib
         {
             _db.Customers.Update(cust); //No db interaction until SaveChangesAsync
             int affected = await _db.SaveChangesAsync();
-            if (affected == 1)
+            if (affected != 0)
                 return cust;
             else
                 return null;
         }
-
-        public Customer Delete(Guid custId)
-        {
-            var cusDel = _db.Customers.Find(custId);
-            _db.Customers.Remove(cusDel);
-
-            int affected = _db.SaveChanges();
-            if (affected == 1)
-                return cusDel;
-            else
-                return null;
-        }
-
+ 
         public CustomerRepository(SeidoDbContext db)
         {
             _db = db; 
