@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 using DbContextLib;
@@ -36,7 +37,10 @@ namespace DbCRUDReposLib
 
         public async Task<Customer> ReadAsync(Guid custId)
         {
-            return await _db.Customers.FindAsync(custId);
+            var cus = await _db.Customers.FindAsync(custId);
+            var orders = _db.Orders.ToList();                   //Needed if I want EFC to load the embedded pearls
+
+            return cus;
         }
 
         public async Task<IEnumerable<Customer>> ReadAllAsync()
