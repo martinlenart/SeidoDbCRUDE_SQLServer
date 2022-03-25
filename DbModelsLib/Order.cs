@@ -16,6 +16,7 @@ namespace DbModelsLib
         [ForeignKey(nameof(CustomerID))]
         [Column("CustomerID")]
         public Guid CustomerID { get; set; }
+
         //public virtual Customer Customer { get; set; }  //removed to avoid recursion in WebApi Json serialization
         #endregion
 
