@@ -34,7 +34,7 @@ namespace DbModelsLib
         public DateTime? DeliveryDate { get; set; }
 
         #region Implement IEquatable
-        public bool Equals(IOrder other) => OrderID == other.OrderID;
+        public bool Equals(IOrder other) => OrderID == other?.OrderID;
 
         //Implement due to legacy reasons
         public override bool Equals(object obj) => Equals(obj as IOrder);

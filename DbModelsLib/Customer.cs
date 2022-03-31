@@ -40,7 +40,7 @@ namespace DbModelsLib
         public override string ToString() => $"{CustomerID}: {FirstName} {LastName}, {Adress}, {ZipCode} {City}, {Country}";
 
         #region Implement IEquatable
-        public bool Equals(ICustomer other) => CustomerID == other.CustomerID;
+        public bool Equals(ICustomer other) => CustomerID == other?.CustomerID;
 
         //Implement due to legacy reasons
         public override bool Equals(object obj) => Equals(obj as ICustomer);
